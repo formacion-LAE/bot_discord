@@ -13,7 +13,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # ID del canal donde quieres que el bot envíe el mensaje
-CANAL_EVENTOS_ID = 1553799378979004550  # ← pon aquí el ID real
+CANAL_EVENTOS_ID = 1287516263760924754  # ← pon aquí el ID real
 
 # Aeropuertos españoles
 AEROPUERTOS_ESP = [

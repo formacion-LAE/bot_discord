@@ -1,8 +1,11 @@
 import discord
 from discord.ext import commands
 import requests
-from bot_secrets import TOKEN
+import os
 import random
+
+TOKEN = os.getenv("TOKEN")  # ← Railway lo leerá de Variables
+
 intents = discord.Intents.default()
 intents.message_content = True
 

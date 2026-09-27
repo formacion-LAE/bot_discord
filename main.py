@@ -152,6 +152,33 @@ async def clear(ctx, cantidad: int):
     await ctx.channel.purge(limit=cantidad + 1)
     await ctx.send(f"🧹 Se han borrado {cantidad} mensajes.", delete_after=5)
 
+
+@bot.command()
+async def metar(ctx, icao: str):
+    import xml.etree.ElementTree as ET
+
+    icao = icao.upper()
+    url = f"https://aviationweather.gov/api/data/metar?ids={icao}&format=xml"
+
+    try:
+        response = requests.get(url)
+        xml_data = response.text
+
+        # Parsear XML
+        root = ET.fromstring(xml_data)
+
+        metar = root.find(".//raw_text")
+
+        if metar is not None:
+            metar_texto = metar.text
+            await ctx.send(f"📡 METAR de **{icao}**:\n```\n{metar_texto}\n```")
+        else:
+            await ctx.send(f"No pude obtener el METAR de {icao}. Puede que NOAA no tenga datos ahora mismo.")
+
+    except Exception as e:
+        await ctx.send(f"Hubo un error obteniendo el METAR: {e}")
+
+
 @bot.event
 async def on_ready():
     print(f"Bot conectado como {bot.user}")
